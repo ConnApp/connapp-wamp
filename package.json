@@ -1,9 +1,10 @@
 {
-  "name": "hello_nodejs",
+  "name": "connapp-wamp",
   "version": "1.0.0",
   "description": "Demo app for using Crossbar.io with Node.js",
   "main": "node/hello.js",
   "scripts": {
+    "test": "./start_crossbar.sh start && cd ",
     "build": "./install_crossbar.sh",
     "start": "./start_crossbar.sh"
   },
@@ -14,10 +15,13 @@
     "mongoose",
     "websocket"
   ],
-  "author": "Tavendo GmbH",
-  "license": "Apache 2.0",
+  "author": "Yan Nunes",
+  "license": "MIT",
   "dependencies": {
+    "jest": "^20.0.4",
+    "lodash": "^4.17.4",
     "mongoose": "^4.11.6",
-    "wampy": "^6.0.0"
+    "wampy": "^6.0.0",
+    "websocket": "^1.0.24"
   }
 }
