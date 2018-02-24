@@ -21,14 +21,14 @@ const getRequireFunction = moduleName => {
 const requireModules = (moduleName, callback) => {
     const modelsDirPath = path.join(__dirname, `../../${moduleName}`)
 
-    const modules = fs.readdirSync(modelsDirPath)
+    const modules = fs.readdirSync(modelsDirPath).filter(moduleName => !moduleName.includes('test.js'))
 
     const requireModule = getRequireFunction(moduleName)
 
     if (typeof callback === 'function') return callback(modules, moduleName, requireModule)
 
     return modules.map(module => ({
-        name: module,
+        name: module.split('.js').join(''),
         initModule: requireModule(module),
     }))
 }
