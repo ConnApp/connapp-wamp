@@ -2,17 +2,17 @@ const fs = require('fs')
 const path = require('path')
 const logger = require('loglevel')
 
-const getRequireFunction = module => {
-    const prefix = module[0].toLowerCase()
+const getRequireFunction = moduleName => {
+    const prefix = moduleName[0].toLowerCase()
 
     const requireFunction = global[prefix + 'require']
 
     if (!requireFunction) {
-        throw new Error(`No global required defined for module ${module}`)
+        throw new Error(`No global require function defined for module ${moduleName}`)
     }
 
     if (typeof requireFunction !== 'function') {
-        throw new Error(`Global require for ${module} is not a function`)
+        throw new Error(`Global require for ${moduleName} is not a function`)
     }
 
     return requireFunction
@@ -25,37 +25,38 @@ const requireModules = (moduleName, callback) => {
 
     const requireModule = getRequireFunction(moduleName)
 
-    if (typeof callback !== 'function') {
-        return modules.map(module => ({
-            name: module,
-            initModule: requireModule(module),
-        }))
-    }
+    if (typeof callback === 'function') return callback(modules, moduleName, requireModule)
 
-    return callback(modules, moduleName)
+    return modules.map(module => ({
+        name: module,
+        initModule: requireModule(module),
+    }))
 }
 
-const initModule = (moduleName, config) => {
+const initModule = async (moduleName, config) => {
     const modules = requireModules(moduleName)
 
-    const moduleStatus = modules.map(async ({ initModule, name }) => {
-        const initStatus = {
-            status: 'success',
-            message: `${moduleName}: ${name} started successfully`,
-        }
+    const moduleStatus = Promise.all(
+        modules.map(async ({ initModule, name }) => {
+            const initStatus = {
+                status: 'success',
+                message: `${moduleName}: ${name} started successfully`,
+            }
 
-        try {
-            await initModule(config)
-        } catch (err) {
-            logger.error(err)
+            try {
+                await initModule(config)
+            } catch (err) {
+                const message = `${moduleName}.${name} : ${err.message}`
 
-            initStatus.status = 'error'
+                logger.error(message)
 
-            initStatus.message = err.message
-        }
+                initStatus.status = 'fail'
+                initStatus.message = message
+            }
 
-        return initStatus
-    })
+            return initStatus
+        })
+    )
 
     return moduleStatus
 }
