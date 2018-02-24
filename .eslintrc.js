@@ -11,6 +11,9 @@ module.exports = {
         it: false,
         next: false,
         before: false,
+        rrequire: true,
+        mrequire: true,
+        wrequire: true,
     },
     parser: 'babel-eslint',
     parserOptions: {

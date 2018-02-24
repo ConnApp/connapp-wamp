@@ -1,5 +1,5 @@
 // Packages imports
-const path = require('path')
+
 const Wampy = require('wampy').Wampy
 const w3cws = require('websocket').w3cwebsocket
 
