@@ -4,9 +4,7 @@ const proxyquire = require('proxyquire')
 rrequire('utils/test')
 
 const wsMock = {
-    subscribe(route, options) {
-        console.log('SUBSCRIBE WAS CALLED')
-    },
+    subscribe(route, options) {},
     call() {},
     publish() {},
     register() {},

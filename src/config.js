@@ -4,8 +4,8 @@ const Wampy = require('wampy').Wampy
 const w3cws = require('websocket').w3cwebsocket
 
 const wsConfig = {
-    url: 'ws://localhost:8080/ws',
-    realm: 'realm1',
+    url: process.env.WS_URL || 'ws://localhost:8080/ws',
+    realm: process.env.WS_REAL || 'realm1',
     client: w3cws,
 }
 
@@ -17,14 +17,14 @@ const websocket = {
     }),
 }
 
-const isLocal = process.env.DEVELOPMENT
-const isProduction = process.env.isProduction
+const isDevelopment = process.env.NODE_ENV === 'development'
+const isProduction = !isDevelopment
 
-const mongo = { url: 'mongodb://localhost:27017/enegep' }
+const mongo = { url: process.env.MONGO_URL || 'mongodb://localhost:27017/enegep' }
 
 module.exports = {
     websocket,
-    isLocal,
+    isDevelopment,
     isProduction,
     mongo,
 }
