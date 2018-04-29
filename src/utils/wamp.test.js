@@ -1,5 +1,4 @@
 const test = require('ava')
-const proxyquire = require('proxyquire')
 
 rrequire('utils/test')
 
@@ -17,13 +16,15 @@ const {
     getCallback,
     errorMessage,
     successMessage,
+
     assignRoute,
     dispatchRoute,
+
     callRoute,
     publishRoute,
     registerRoute,
     subscribeRoute,
-} = proxyquire('./wamp', { '../config': { websocket: { connection: wsMock } } })
+} = proxyquire('utils/wamp', { '../config': { websocket: { connection: wsMock } } })
 
 test('should build onError callback successfully', async t => {
     const task = 'subscribe'

@@ -1,4 +1,5 @@
 const path = require('path')
+const proxy = require('proxyquire')
 
 // For testing only
 global.arequire = {}
@@ -6,13 +7,13 @@ global.arequire = {}
 global.src_path = path.join(__dirname, '../')
 
 global.rrequire = function(module) {
-    return require(path.join(global.src_path, module))
+    const modulePath = path.join(global.src_path, module)
+
+    return require(modulePath)
 }
 
-global.mrequire = function(modelName) {
-    return global.rrequire(path.join('models', modelName))
-}
+global.proxyquire = function(module, object) {
+    const modulePath = path.join(global.src_path, module)
 
-global.wrequire = function(modelName) {
-    return global.rrequire(path.join('watchers', modelName))
+    return proxy(modulePath, object)
 }

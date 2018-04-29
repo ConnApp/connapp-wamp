@@ -11,7 +11,7 @@ const requireModels = () => {
     const models = fs.readdirSync(modelsDirPath)
 
     for (let model of models) {
-        mrequire(model)
+        rrequire(`models/${model}`)
     }
 }
 
