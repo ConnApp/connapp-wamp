@@ -14,6 +14,7 @@ module.exports = {
         rrequire: true,
         mrequire: true,
         wrequire: true,
+        src_path: true,
     },
     parser: 'babel-eslint',
     parserOptions: {
