@@ -2,12 +2,10 @@ const logger = require('loglevel')
 
 require('./utils/require')
 
-const config = require('./config')
-
-const initModules = require('./utils/init')
+const initModules = rrequire('utils/init')
 
 async function init() {
-    const moduleStatus = await initModules(config)
+    const moduleStatus = await initModules()
 
     moduleStatus.forEach(status => {
         logger.info(status)

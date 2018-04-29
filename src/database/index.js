@@ -3,8 +3,10 @@ const path = require('path')
 const logger = require('loglevel')
 const mongoose = require('mongoose')
 
+const config = rrequire('config')
+
 const requireModels = () => {
-    const modelsDirPath = path.join(__dirname, '../../models')
+    const modelsDirPath = path.join(src_path, 'models')
 
     const models = fs.readdirSync(modelsDirPath)
 
@@ -14,7 +16,8 @@ const requireModels = () => {
 }
 
 module.exports = {
-    async init(config) {
+    name: 'database',
+    async init() {
         const initStatus = {
             status: 'success',
             message: 'Connected to the database successfully',
@@ -34,7 +37,7 @@ module.exports = {
         return initStatus
     },
 
-    close: () => {
-        mongoose.disconnect()
+    close() {
+        return mongoose.disconnect()
     },
 }

@@ -1,12 +1,12 @@
 const path = require('path')
 
-const rootDir = path.join(__dirname, '../')
-
 // For testing only
 global.arequire = {}
 
+global.src_path = path.join(__dirname, '../')
+
 global.rrequire = function(module) {
-    return require(path.join(rootDir, module))
+    return require(path.join(global.src_path, module))
 }
 
 global.mrequire = function(modelName) {
