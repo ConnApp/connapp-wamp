@@ -11,7 +11,7 @@ const wsConfig = {
 
 const websocket = {
     config: wsConfig,
-    connections: new Wampy(wsConfig.url, {
+    connection: new Wampy(wsConfig.url, {
         ws: wsConfig.client,
         realm: wsConfig.realm,
     }),
