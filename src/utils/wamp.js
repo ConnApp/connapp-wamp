@@ -49,7 +49,7 @@ const assignRoute = routeType => (route, callback) =>
         if (routeType === 'register') {
             callbackObject.rpc = callback
         }
-        console.log(ws)
+
         ws[routeType](route, callbackObject)
     })
 
