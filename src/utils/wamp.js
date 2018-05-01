@@ -24,6 +24,34 @@ const onSuccess = getCallback('success')
 
 const dispatchRoute = routeType => (route, payload = {}, options = {}) =>
     new Promise((resolve, reject) => {
+        const allowedRouteType = [
+            'call',
+            'publish',
+        ]
+
+        const typeofRoute = typeof route
+        const typeofPayload = typeof payload
+
+        const errors = []
+
+        if (!allowedRouteType.includes(routeType)) {
+            errors.push(
+                `Only ${allowedRouteType.join(', and ')} to route are allowed, but you tried to ${routeType}`
+            )
+        }
+
+        if (typeofRoute !== 'string') {
+            errors.push(`Route should be a string, but got ${typeofRoute}`)
+        }
+
+        if (typeofPayload === 'function') {
+            errors.push('Payload can not be a function')
+        }
+
+        if (errors.length) {
+            throw new Error(errors)
+        }
+
         ws[routeType](
             route,
             payload,
@@ -37,6 +65,34 @@ const dispatchRoute = routeType => (route, payload = {}, options = {}) =>
 
 const assignRoute = routeType => (route, callback) =>
     new Promise((resolve, reject) => {
+        const typeofRoute = typeof route
+        const typeofCallback = typeof callback
+
+        const allowedRouteType = [
+            'register',
+            'subscribe',
+        ]
+
+        const errors = []
+
+        if (!allowedRouteType.includes(routeType)) {
+            errors.push(
+                `Only ${allowedRouteType.join(', and ')} to route are allowed, but you tried to ${routeType}`
+            )
+        }
+
+        if (typeofCallback !== 'function') {
+            errors.push(`Callback should be a function, but got ${typeofCallback}`)
+        }
+
+        if (typeofRoute !== 'string') {
+            errors.push(`Route should be a string, but got ${typeofRoute}`)
+        }
+
+        if (errors.length) {
+            throw new Error(errors)
+        }
+
         const callbackObject = {
             onError: onError(reject)('subscribe', route),
             onSuccess: onSuccess(resolve)('subscribe', route),
