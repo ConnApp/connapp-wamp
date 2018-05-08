@@ -59,8 +59,29 @@ const initModule = async (moduleName, customInitProcedure) => {
     return result
 }
 
+// TODO test
+const readFileInDir = dirPath => {
+    const files = fs
+        .readdirSync(dirPath)
+        .filter(file => {
+            const isIndex = file.includes('index')
+
+            const isDirectory = fs.lstatSync(path.resolve(dirPath, file)).isDirectory()
+
+            return !isIndex && !isDirectory
+        })
+        .map(file => file.replace('.js', ''))
+
+    return files
+}
+
+// TODO test
+const isFunction = element => typeof element === 'function'
+
 module.exports = {
     initModule,
+    isFunction,
     buildRoute,
+    readFileInDir,
     requireModules,
 }
