@@ -63,7 +63,7 @@ module.exports = {
             },
         ],
         'object-curly-spacing': ['error', 'always'],
-        'no-console': 'warn',
+        'no-console': [{ allow: ['warn', 'error', 'log'] }],
         'no-var': 'error',
         'comma-dangle': ['error', 'always-multiline'],
         'object-property-newline': 2,
