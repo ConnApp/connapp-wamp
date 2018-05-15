@@ -43,12 +43,7 @@ module.exports = {
             },
         ],
         'space-before-function-paren': 0,
-        'no-unused-vars': [
-            'warn',
-            {
-                varsIgnorePattern: 'services',
-            },
-        ],
+        'no-unused-vars': 'warn',
         'array-bracket-newline': [
             'error',
             {
@@ -63,7 +58,7 @@ module.exports = {
             },
         ],
         'object-curly-spacing': ['error', 'always'],
-        'no-console': [{ allow: ['warn', 'error', 'log'] }],
+
         'no-var': 'error',
         'comma-dangle': ['error', 'always-multiline'],
         'object-property-newline': 2,

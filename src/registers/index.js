@@ -1,5 +1,5 @@
+const { registerRoute } = rrequire('wamp')
 const { initModule } = rrequire('utils/shared')
-const { registerRoute } = rrequire('utils/wamp')
 
 module.exports = {
     name: 'registers',
