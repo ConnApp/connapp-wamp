@@ -65,10 +65,10 @@ const readFileInDir = dirPath => {
         .readdirSync(dirPath)
         .filter(file => {
             const isIndex = file.includes('index')
-
+            const isTest = file.includes('.test.js')
             const isDirectory = fs.lstatSync(path.resolve(dirPath, file)).isDirectory()
 
-            return !isIndex && !isDirectory
+            return !isIndex && !isDirectory && !isTest
         })
         .map(file => file.replace('.js', ''))
 

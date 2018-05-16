@@ -1,8 +1,9 @@
 const test = require('ava')
+const path = require('path')
 
 rrequire('utils/test')
 
-const { initModule, buildRoute, requireModules } = rrequire('utils/shared')
+const { initModule, isFunction, buildRoute, readFileInDir, requireModules } = rrequire('utils/shared')
 
 test('should require modules correctly', async t => {
     const moduleName = 'registers'
@@ -43,4 +44,53 @@ test('should build route correctly', async t => {
     const route = buildRoute(1, 2, 3, 'myroute', 5)
 
     t.is(route, expectedResult)
+})
+
+test('should test if is function correctly', async t => {
+    const tests = [
+        () => {},
+        async () => {},
+        function() {},
+        async function() {},
+        {},
+        [],
+        null,
+        'string',
+        0,
+        10,
+        true,
+        false,
+    ]
+
+    const expectedResult = [
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+    ]
+
+    const result = tests.map(isFunction)
+
+    t.deepEqual(expectedResult, result)
+})
+
+test('should read files in a directory correctly and not read test files', async t => {
+    const expectedResult = [
+        'init',
+        'require',
+        'shared',
+        'test',
+    ]
+
+    const dirFiles = readFileInDir(__dirname)
+
+    t.deepEqual(expectedResult, dirFiles)
 })
