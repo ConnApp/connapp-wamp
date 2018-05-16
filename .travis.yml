@@ -1,0 +1,19 @@
+language: node_js
+node_js:
+  - "8"
+
+#Services
+services:
+  - mongodb
+
+#Environment Variables
+env:
+  - CXX=g++-4.9
+
+#External Plugins
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - g++-4.9
