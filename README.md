@@ -1,10 +1,11 @@
 # ConnApp Wamp API
-Wamp API and backend library for the ConnApp
 
+[![Build Status](https://travis-ci.org/ConnApp/connapp-wamp.svg?branch=master)](https://travis-ci.org/ConnApp/connapp-wamp)
+Wamp API and backend library for the ConnApp
 
 # Instaltion
 
-------
+---
 
 ## First things frist
 
@@ -35,7 +36,9 @@ To start the router, run:
 ```sh
 crossbar start
 ```
+
 or
+
 ```sh
 ./start_crossbar.sh
 ```
