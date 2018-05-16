@@ -21,10 +21,7 @@ test('should throw error when no require function is found', async t => {
 
     const error = t.throws(() => requireModules(moduleName))
 
-    t.is(
-        error.message,
-        `ENOENT: no such file or directory, scandir '/Users/yannunes/projects/connapp/connapp-wamp/src/${moduleName}'`
-    )
+    t.is(error.message, `ENOENT: no such file or directory, scandir '${src_path}${moduleName}'`)
 })
 
 test('should init registers module without error', async t => {
