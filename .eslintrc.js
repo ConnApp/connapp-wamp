@@ -11,11 +11,6 @@ module.exports = {
         it: false,
         next: false,
         before: false,
-        rrequire: true,
-        mrequire: true,
-        wrequire: true,
-        src_path: true,
-        proxyquire: true,
     },
     parser: 'babel-eslint',
     parserOptions: {
@@ -43,7 +38,12 @@ module.exports = {
             },
         ],
         'space-before-function-paren': 0,
-        'no-unused-vars': 'warn',
+        'no-unused-vars': [
+            'warn',
+            {
+                varsIgnorePattern: 'services',
+            },
+        ],
         'array-bracket-newline': [
             'error',
             {
@@ -58,7 +58,7 @@ module.exports = {
             },
         ],
         'object-curly-spacing': ['error', 'always'],
-
+        'no-console': 'warn',
         'no-var': 'error',
         'comma-dangle': ['error', 'always-multiline'],
         'object-property-newline': 2,
