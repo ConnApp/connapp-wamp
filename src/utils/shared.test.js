@@ -1,6 +1,10 @@
 const test = rrequire('test')
 
-const { initModule, isFunction, buildRoute, readFileInDir, requireModules } = rrequire('utils/shared')
+const { initModule, isFunction, buildRoute, readFileInDir, requireModules, getObjectType } = rrequire(
+    'utils/shared'
+)
+
+test.todo('getObjectType tests')
 
 test('should require modules correctly', async t => {
     const moduleName = 'registers'

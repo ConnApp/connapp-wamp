@@ -21,7 +21,9 @@ module.exports = {
     parserOptions: {
         ecmaVerions: 2017,
     },
+
     rules: {
+        'quote-props': [1, 'as-needed'],
         indent: [
             'error',
             4,

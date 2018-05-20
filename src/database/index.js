@@ -3,7 +3,7 @@ const path = require('path')
 const logger = require('loglevel')
 const mongoose = require('mongoose')
 
-const config = rrequire('config')
+const { wamp } = rrequire('config')
 
 const requireModels = () => {
     const modelsDirPath = path.join(src_path, 'models')

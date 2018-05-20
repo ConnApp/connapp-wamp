@@ -17,8 +17,8 @@ const requireModules = moduleName => {
         .filter(moduleName => !moduleName.includes('test.js') && !moduleName.includes('index.js'))
 
     return modules.map(module => ({
-        name: module.split('.js').join(''),
-        routes: rrequire(`${moduleName}/${module}`),
+        'name': module.split('.js').join(''),
+        'routes': rrequire(`${moduleName}/${module}`),
     }))
 }
 
@@ -31,9 +31,9 @@ const initModule = async (moduleName, customInitProcedure) => {
         const uppercaseModuleName = moduleName.toUpperCase()
 
         const initStatus = {
-            status: 'success',
-            module: moduleName,
-            message: `${uppercaseModuleName}: ${name} started successfully`,
+            'status': 'success',
+            'module': moduleName,
+            'message': `${uppercaseModuleName}: ${name} started successfully`,
         }
 
         try {
@@ -78,10 +78,19 @@ const readFileInDir = dirPath => {
 // TODO test
 const isFunction = element => typeof element === 'function'
 
+const getObjectType = fn => {
+    const fnString = Object.prototype.toString.call(fn)
+
+    const rawType = fnString.replace(/(\[|\])/g, '')
+
+    return rawType.split(' ').pop()
+}
+
 module.exports = {
     initModule,
     isFunction,
     buildRoute,
     readFileInDir,
+    getObjectType,
     requireModules,
 }

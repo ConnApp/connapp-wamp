@@ -7,7 +7,7 @@ const getMethod = methodName => {
     try {
         if (!methodName) throw Error('No method type')
 
-        method = rrequire(`wamp/${methodName}`)
+        method = rrequire(`wamp/${methodName}`)()
     } catch (error) {
         throw error
     }

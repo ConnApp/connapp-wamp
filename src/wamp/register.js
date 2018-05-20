@@ -1,11 +1,14 @@
 const config = rrequire('config')
 
-const ws = config.websocket.connection
-
-module.exports = async (route, payload = () => {}, callbackObject = {}, options = {}) => {
+module.exports = (wamp = config.wamp) => async (
+    route,
+    payload = () => {},
+    callbackObject = {},
+    options = {}
+) => {
     // TODO Validate payload
 
     callbackObject.rpc = payload
 
-    return ws.register(route, callbackObject, options)
+    return wamp.register(route, callbackObject, options)
 }
