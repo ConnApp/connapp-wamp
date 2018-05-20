@@ -1,7 +1,7 @@
 const test = rrequire('test')
 
 const { getObjectType } = rrequire('utils/shared')
-const { getMethod, methodWrapper, callbackWrapper } = require('./wamp')
+const { getMethod, methodWrapper, callbackWrapper, buildMethods } = require('./wamp')
 
 const methods = [
     'call',
@@ -441,4 +441,36 @@ test('should throw error when method does not exists', async t => {
     const expectedResponse = `Cannot find module '${src_path}wamp/null'`
 
     t.deepEqual(error.message, expectedResponse)
+})
+
+test('should build methods object correctly', async t => {
+    t.plan(8)
+
+    const wampMock = {
+        call() {
+            t.pass()
+        },
+        publish() {
+            t.pass()
+        },
+        register() {
+            t.pass()
+        },
+        subscribe() {
+            t.pass()
+        },
+    }
+
+    const methodsObj = buildMethods(wampMock)
+
+    for (let method in methodsObj) {
+        t.true(methods.includes(method))
+        methodsObj[method]('route', {}, {})
+    }
+})
+
+test('should throw error if wamp connection instance is not provided', async t => {
+    const error = t.throws(() => buildMethods())
+
+    t.is(error.message, 'Missing wamp connection object')
 })

@@ -1,5 +1,15 @@
+const path = require('path')
+
 const { isFunction } = rrequire('utils/shared')
 const buildCallbacks = rrequire('wamp/callbacks')
+const { readFileInDir } = rrequire('utils/shared')
+
+const allowedMethodNames = [
+    'call',
+    'publish',
+    'register',
+    'subscribe',
+]
 
 const getMethod = methodName => {
     let method
@@ -66,8 +76,23 @@ const methodWrapper = methodName => wamp => (route, payload, { pre, post, ...opt
         }
     })
 
+const buildMethods = wamp => {
+    if (!wamp) throw new Error('Missing wamp connection object')
+
+    const wampPath = path.join(src_path, 'wamp')
+
+    return readFileInDir(wampPath).reduce((methods, name) => {
+        if (!methods[name] && allowedMethodNames.includes(name)) {
+            methods[name] = methodWrapper(name)(wamp)
+        }
+
+        return methods
+    }, {})
+}
+
 module.exports = {
     getMethod,
+    buildMethods,
     methodWrapper,
     callbackWrapper,
 }
