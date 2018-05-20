@@ -9,6 +9,7 @@ function buildRoute() {
     ].join('.')
 }
 
+// NOTE NOT USED
 const requireModules = moduleName => {
     const modelsDirPath = path.join(src_path, moduleName)
 
@@ -87,10 +88,8 @@ const getObjectType = fn => {
 }
 
 module.exports = {
-    initModule,
     isFunction,
     buildRoute,
     readFileInDir,
     getObjectType,
-    requireModules,
 }

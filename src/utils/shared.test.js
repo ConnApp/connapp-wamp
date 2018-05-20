@@ -1,8 +1,6 @@
 const test = rrequire('test')
 
-const { initModule, isFunction, buildRoute, readFileInDir, requireModules, getObjectType } = rrequire(
-    'utils/shared'
-)
+const { isFunction, buildRoute, readFileInDir, getObjectType } = rrequire('utils/shared')
 
 test('getObjectType tests', async t => {
     const elements = [
@@ -42,36 +40,6 @@ test('getObjectType tests', async t => {
     const result = elements.map(getObjectType)
 
     t.deepEqual(result, expectedResult)
-})
-
-test('should require modules correctly', async t => {
-    const moduleName = 'registers'
-
-    const modules = requireModules(moduleName)
-
-    modules.forEach(module => {
-        t.is(typeof module.name, 'string')
-        t.is(typeof module.routes, 'object')
-    })
-})
-
-test('should throw error when no require function is found', async t => {
-    const moduleName = 'z'
-
-    const error = t.throws(() => requireModules(moduleName))
-
-    t.is(error.message, `ENOENT: no such file or directory, scandir '${src_path}${moduleName}'`)
-})
-
-test('should init registers module without error', async t => {
-    const moduleName = 'registers'
-
-    const moduleResult = await initModule(moduleName, () => {})
-
-    t.truthy(moduleResult.length)
-    t.is(moduleResult[0].status, 'success')
-    t.is(moduleResult[0].module, moduleName)
-    t.is(moduleResult[0].message, 'REGISTERS: auth started successfully')
 })
 
 test('should build route correctly', async t => {
