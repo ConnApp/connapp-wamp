@@ -4,7 +4,45 @@ const { initModule, isFunction, buildRoute, readFileInDir, requireModules, getOb
     'utils/shared'
 )
 
-test.todo('getObjectType tests')
+test('getObjectType tests', async t => {
+    const elements = [
+        () => {},
+        async () => {},
+        function() {},
+        async function() {},
+        {},
+        [],
+        null,
+        'string',
+        0,
+        10,
+        true,
+        false,
+        new Error(),
+        new Promise(() => {}),
+    ]
+
+    const expectedResult = [
+        'Function',
+        'AsyncFunction',
+        'Function',
+        'AsyncFunction',
+        'Object',
+        'Array',
+        'Null',
+        'String',
+        'Number',
+        'Number',
+        'Boolean',
+        'Boolean',
+        'Error',
+        'Promise',
+    ]
+
+    const result = elements.map(getObjectType)
+
+    t.deepEqual(result, expectedResult)
+})
 
 test('should require modules correctly', async t => {
     const moduleName = 'registers'
