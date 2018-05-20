@@ -7,7 +7,7 @@ const getMethod = methodName => {
     try {
         if (!methodName) throw Error('No method type')
 
-        method = rrequire(`wamp/${methodName}`)()
+        method = rrequire(`wamp/${methodName}`)
     } catch (error) {
         throw error
     }
@@ -18,29 +18,37 @@ const getMethod = methodName => {
 // TODO Test this
 const callbackWrapper = (callback, { pre, post } = {}) => {
     return async function() {
-        const functionArguments = { ...arguments }
+        const functionArguments = arguments
 
         // TODO Pre and Post Hooks
         // NOTE Maybe use async pipeline. Not sure yet
 
-        // let preResult
-        // let postResult
+        let preResult = {}
 
         if (isFunction(pre)) {
-            // preResult = await pre(functionArguments)
+            preResult = await pre.apply(null, [
+                ...functionArguments,
+            ])
         }
 
-        const mainResult = await callback.apply(null, functionArguments)
+        const mainResult = await callback.apply(null, [
+            ...functionArguments,
+            preResult,
+        ])
 
         if (isFunction(post)) {
-            // postResult = await post.call((functionArguments, mainResult, preResult))
+            await post.apply(null, [
+                ...functionArguments,
+                preResult,
+                mainResult,
+            ])
         }
 
         return mainResult
     }
 }
 
-const methodWrapper = methodName => (route, payload, { pre, post, ...options }) =>
+const methodWrapper = methodName => wamp => (route, payload, { pre, post, ...options }) =>
     new Promise((resolve, reject) => {
         {
             // TODO Validate methodName and Routes
@@ -55,11 +63,15 @@ const methodWrapper = methodName => (route, payload, { pre, post, ...options }) 
                     })
                 }
 
-                return method(route, payload, callbacks, options) // NOTE Might throw error
+                return method(wamp)(route, payload, callbacks, options) // NOTE Might throw error
             } catch (error) {
                 reject(error)
             }
         }
     })
 
-module.exports = { methodWrapper }
+module.exports = {
+    getMethod,
+    methodWrapper,
+    callbackWrapper,
+}
