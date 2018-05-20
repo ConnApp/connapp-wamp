@@ -39,19 +39,22 @@ test('should wrap callback with pre and post hooks correctly', async t => {
         pre(test, test2) {
             t.is(test, 1)
             t.is(test2, 2)
+
             return { fromPre: true }
         },
         post(test, test2, preResult, mainResult) {
             t.is(test, 1)
             t.is(test2, 2)
+            t.is(mainResult.result, 3)
+
             t.true(preResult.fromPre)
             t.true(mainResult.fromMain)
-            t.is(mainResult.result, 3)
         },
     }
 
     const callback = async (test, test2, preResult) => {
         t.true(preResult.fromPre)
+
         return {
             fromMain: true,
             result: test + test2,
@@ -68,14 +71,16 @@ test('should wrap callback with only post hook correctly', async t => {
         post(test, test2, preResult, mainResult) {
             t.is(test, 1)
             t.is(test2, 2)
+            t.is(mainResult.result, 3)
+
             t.deepEqual(preResult, {})
             t.true(mainResult.fromMain)
-            t.is(mainResult.result, 3)
         },
     }
 
     const callback = async (test, test2, preResult) => {
         t.deepEqual(preResult, {})
+
         return {
             fromMain: true,
             result: test + test2,
@@ -92,12 +97,14 @@ test('should wrap callback with only pre-hook correctly', async t => {
         pre(test, test2) {
             t.is(test, 1)
             t.is(test2, 2)
+
             return { fromPre: true }
         },
     }
 
     const callback = async (test, test2, preResult) => {
         t.true(preResult.fromPre)
+
         return {
             fromMain: true,
             result: test + test2,
@@ -164,6 +171,7 @@ test('should fail to wrap register method when an error occurs', async t => {
     const wampMock = {
         async register(route, callbacks, options) {
             t.true(options.other)
+
             callbacks.onError(true)
         },
     }
@@ -211,6 +219,7 @@ test('should wrap subscribe method correctly with the right options', async t =>
     const wampMock = {
         async subscribe(route, callbacks, options) {
             t.true(options.other)
+
             callbacks.onSuccess(true)
             callbacks.onEvent({ objectFromCall: true })
         },
@@ -245,6 +254,7 @@ test('should fail to wrap subscribe method when an error occurs', async t => {
     const wampMock = {
         async subscribe(route, callbacks, options) {
             t.true(options.other)
+
             callbacks.onError(true)
         },
     }
