@@ -46,6 +46,7 @@ module.exports = {
         ],
         'space-before-function-paren': 0,
         'no-unused-vars': 'warn',
+        'no-console': 'warn',
         'array-bracket-newline': [
             'error',
             {

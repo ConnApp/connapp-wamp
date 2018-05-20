@@ -1,22 +1,21 @@
-const logger = require('loglevel')
-
 require('./utils/require')
 
 const config = require('./config')
 
+const wamp = rrequire('wamp')
 const initModules = rrequire('utils/init')
 
-async function init() {
-    const moduleStatus = await initModules()
+async function init(wampConnection) {
+    const moduleStatus = await initModules(wampConnection)
 
-    moduleStatus.forEach(status => {
-        logger.info(status)
+    moduleStatus.forEach(({ status, message }) => {
+        console.log(`${status.toUpperCase()} - ${message}`)
     })
 }
 
-init()
+init(wamp)
     .then(() => {
-        console.log(`Running node server as ${config.envName}`)
+        console.log(`Running NODE Server as ${config.envName.toUpperCase()}`)
     })
     .catch(err => {
         console.log('Something went wrong while starting the server', err)

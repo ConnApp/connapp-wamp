@@ -3,15 +3,15 @@ const path = require('path')
 const logger = require('loglevel')
 const mongoose = require('mongoose')
 
-const { wamp } = rrequire('config')
+const config = rrequire('config')
 
 const requireModels = () => {
-    const modelsDirPath = path.join(src_path, 'models')
+    const modelsDirPath = path.join(__dirname, 'models')
 
     const models = fs.readdirSync(modelsDirPath)
 
     for (let model of models) {
-        rrequire(`models/${model}`)
+        rrequire(`database/models/${model}`)
     }
 }
 
@@ -20,7 +20,7 @@ module.exports = {
     async init() {
         const initStatus = {
             status: 'success',
-            message: 'Connected to the database successfully',
+            message: 'Connected to the DATABASE successfully',
         }
 
         try {
