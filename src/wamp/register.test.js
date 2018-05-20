@@ -1,5 +1,3 @@
-const test = require('ava')
-
-rrequire('utils/test')
+const test = rrequire('test')
 
 test.todo('All tests')

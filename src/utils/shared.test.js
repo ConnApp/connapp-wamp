@@ -1,7 +1,4 @@
-const test = require('ava')
-const path = require('path')
-
-rrequire('utils/test')
+const test = rrequire('test')
 
 const { initModule, isFunction, buildRoute, readFileInDir, requireModules } = rrequire('utils/shared')
 
@@ -84,7 +81,6 @@ test('should read files in a directory correctly and not read test files', async
         'init',
         'require',
         'shared',
-        'test',
     ]
 
     const dirFiles = readFileInDir(__dirname)
