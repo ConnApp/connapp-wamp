@@ -10,12 +10,28 @@ const methods = [
     'subscribe',
 ]
 
+test('should require functions correctly', async t => {
+    t.notThrows(() => require('./wamp'))
+})
+
 test('should get methods correctly', async t => {
     for (let method of methods) {
         const mthd = getMethod(method)
 
         t.is(getObjectType(mthd), 'Function')
     }
+})
+
+test('should throw error when require unexisting method', async t => {
+    const error = await t.throws(() => getMethod('null'))
+
+    t.is(error.message, `Cannot find module '${src_path}wamp/null'`)
+})
+
+test('should throw error no method name is provided', async t => {
+    const error = await t.throws(() => getMethod())
+
+    t.is(error.message, 'No method type')
 })
 
 test('should wrap callback with pre and post hooks correctly', async t => {
@@ -291,7 +307,7 @@ test('should wrap call method correctly with the right options', async t => {
     t.deepEqual(response, expectedResponse)
 })
 
-test('should failt to wrap call method when an error occurs', async t => {
+test('should fail to wrap call method when an error occurs', async t => {
     t.plan(4)
 
     const options = {
@@ -361,7 +377,7 @@ test('should wrap publish method correctly with the right options', async t => {
     t.deepEqual(response, expectedResponse)
 })
 
-test('should failt to wrap call method when an error occurs', async t => {
+test('should fail to wrap call method when an error occurs', async t => {
     t.plan(4)
 
     const options = {
@@ -394,4 +410,35 @@ test('should failt to wrap call method when an error occurs', async t => {
     }
 
     t.deepEqual(error, expectedResponse)
+})
+
+test('should throw error when method does not exists', async t => {
+    t.plan(2)
+
+    const options = {
+        other: true,
+        pre() {
+            t.fail() // Is Not called
+        },
+        post() {
+            t.fail() // Is Not called
+        },
+    }
+
+    const wampMock = {
+        async null(route, payload, callbacks, options) {
+            t.true(options.other)
+            t.true(payload.isPayload)
+
+            callbacks.onError(true)
+        },
+    }
+
+    const method = methodWrapper('null')(wampMock)
+
+    const error = await t.throws(method('test', { isPayload: true }, options))
+
+    const expectedResponse = `Cannot find module '${src_path}wamp/null'`
+
+    t.deepEqual(error.message, expectedResponse)
 })

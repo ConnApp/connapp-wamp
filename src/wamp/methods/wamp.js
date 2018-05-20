@@ -15,13 +15,9 @@ const getMethod = methodName => {
     return method
 }
 
-// TODO Test this
 const callbackWrapper = (callback, { pre, post } = {}) => {
     return async function() {
         const functionArguments = arguments
-
-        // TODO Pre and Post Hooks
-        // NOTE Maybe use async pipeline. Not sure yet
 
         let preResult = {}
 
