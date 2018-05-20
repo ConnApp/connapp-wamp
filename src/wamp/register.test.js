@@ -1,3 +1,17 @@
 const test = rrequire('test')
+const sinon = require('sinon')
 
-test.todo('All tests')
+const register = require('./register')
+
+test('should register route with correct arguments', async t => {
+    const spy = sinon.spy()
+    const wampMock = { register: spy }
+
+    const rpc = async () => {}
+    const expectedPayload = { rpc }
+
+    const registerRoute = register(wampMock)
+    registerRoute('test', rpc)
+
+    t.notThrows(() => sinon.assert.calledWith(spy, 'test', expectedPayload))
+})
