@@ -23,6 +23,7 @@ const requireModules = moduleName => {
     }))
 }
 
+// NOTE NOT USED
 const initModule = async (moduleName, customInitProcedure) => {
     const result = []
     const modules = requireModules(moduleName)
