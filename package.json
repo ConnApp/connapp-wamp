@@ -11,11 +11,26 @@
     },
     "ava": {
         "failFast": false,
-        "source": ["src/**/*"],
-        "files": ["src/**/*.test.js"],
-        "require": ["babel-polyfill", "./src/utils/require"]
+        "source": [
+            "src/**/*"
+        ],
+        "files": [
+            "src/**/*.test.js"
+        ],
+        "require": [
+            "babel-polyfill",
+            "./src/utils/require"
+        ]
     },
-    "keywords": ["crossbario", "wamp", "api", "mongoose", "websocket", "microservice", "node"],
+    "keywords": [
+        "crossbario",
+        "wamp",
+        "api",
+        "mongoose",
+        "websocket",
+        "microservice",
+        "node"
+    ],
     "author": "Yan Nunes",
     "license": "MIT",
     "dependencies": {
@@ -44,6 +59,7 @@
         "eslint-plugin-prettier": "^2.6.0",
         "eslint-config-prettier": "^2.9.0",
         "eslint-config-standard": "^11.0.0",
-        "eslint-plugin-standard": "^3.1.0"
+        "eslint-plugin-standard": "^3.1.0",
+        "connwamp": "git+https://github.com/ConnApp/connwamp.git"
     }
 }
