@@ -4,6 +4,7 @@
     "description": "Micro-service Node boilerplate",
     "main": "src/index.js",
     "scripts": {
+        "clean-install": "rm -rf node_modules/ && npm install",
         "build": "docker-compose up",
         "start": "node src/index.js",
         "test": "NODE_ENV=test nyc ava --verbose",
@@ -60,6 +61,6 @@
         "eslint-config-prettier": "^2.9.0",
         "eslint-config-standard": "^11.0.0",
         "eslint-plugin-standard": "^3.1.0",
-        "connwamp": "git+https://github.com/ConnApp/connwamp.git"
+        "connwamp": "git+https://github.com/ConnApp/connwamp.git#master"
     }
 }

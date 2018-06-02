@@ -10,3 +10,5 @@ global.rrequire = function(module) {
 
     return require(modulePath)
 }
+
+module.exports = {}

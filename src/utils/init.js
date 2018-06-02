@@ -2,14 +2,18 @@ const modules = [
     rrequire('database'),
 ]
 
-module.exports = wamp => {
-    return Promise.all(
-        modules.map(async module => {
-            if (typeof module.init !== 'function') {
-                throw new Error(`Module ${module.name} does not have a init method!`)
-            }
+module.exports = async wamp => {
+    const result = []
 
-            return module.init(wamp)
-        })
-    )
+    for (let module of modules) {
+        if (typeof module.init !== 'function') {
+            throw new Error(`Module ${module.name} does not have a init method!`)
+        }
+
+        const initResult = await module.init(wamp)
+
+        result.push(initResult)
+    }
+
+    return result
 }
