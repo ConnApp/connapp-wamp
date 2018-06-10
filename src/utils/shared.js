@@ -88,9 +88,20 @@ const getObjectType = fn => {
     return rawType.split(' ').pop()
 }
 
+const listFoldersInDirectory = (directory, excludeList = []) => {
+    return fs.readdirSync(directory).map(folder => {
+        const folderPath = path.join(directory, folder)
+
+        const isFolderAndExists = fs.existsSync(folderPath) && fs.lstatSync(folderPath).isDirectory()
+
+        return isFolderAndExists && !excludeList.includes(folder)
+    })
+}
+
 module.exports = {
     isFunction,
     buildRoute,
     readFileInDir,
     getObjectType,
+    listFoldersInDirectory,
 }

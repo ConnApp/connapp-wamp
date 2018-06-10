@@ -97,3 +97,5 @@ test('should read files in a directory correctly and not read test files', async
 
     t.deepEqual(expectedResult, dirFiles)
 })
+
+test.todo('readDirectorysInFolder tests')

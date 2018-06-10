@@ -3,16 +3,12 @@ require('./utils/require')
 const wamp = require('connwamp')
 
 const config = require('./config')
-const initModules = rrequire('utils/init')
+const servicesInit = rrequire('services')
 
 async function init() {
     await wamp.connect(config.socket.url, { realm: config.socket.realm })
 
-    const moduleStatus = await initModules()
-
-    moduleStatus.forEach(({ status, message }) => {
-        console.log(`${status.toUpperCase()} - ${message}`)
-    })
+    await servicesInit()
 }
 
 init()
