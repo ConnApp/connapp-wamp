@@ -21,7 +21,7 @@ module.exports = function getServiceMiddlewares(serviceName) {
                 if (fileService !== serviceName) continue
 
                 // NOTE Here you are supposed to play with pointers. BE CAREFUL
-                await require(`${middlewaresPath}/${middleware}`).bind(payload)
+                await require(`${middlewaresPath}/${middleware}`)(payload)
             }
 
             return payload
