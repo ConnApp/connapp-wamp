@@ -1,64 +1,10 @@
 const fs = require('fs')
 const path = require('path')
-const logger = require('loglevel')
-const toSlugCase = require('to-slug-case')
 
 function buildRoute() {
     return [
         ...arguments,
     ].join('.')
-}
-
-// NOTE NOT USED
-const requireModules = moduleName => {
-    const modelsDirPath = path.join(src_path, moduleName)
-
-    const modules = fs
-        .readdirSync(modelsDirPath)
-        .filter(moduleName => !moduleName.includes('test.js') && !moduleName.includes('index.js'))
-
-    return modules.map(module => ({
-        name: module.split('.js').join(''),
-        routes: rrequire(`${moduleName}/${module}`),
-    }))
-}
-
-// NOTE NOT USED
-const initModule = async (moduleName, customInitProcedure) => {
-    const result = []
-    const modules = requireModules(moduleName)
-
-    for (let module of modules) {
-        const { name, routes } = module
-        const uppercaseModuleName = moduleName.toUpperCase()
-
-        const initStatus = {
-            status: 'success',
-            module: moduleName,
-            message: `${uppercaseModuleName}: ${name} started successfully`,
-        }
-
-        try {
-            for (let route in routes) {
-                const procedure = routes[route]
-                const normalizedRouteName = toSlugCase(route)
-                const fullRoute = buildRoute('connapp', name, normalizedRouteName)
-
-                await customInitProcedure(fullRoute, procedure)
-            }
-        } catch (error) {
-            const message = `${uppercaseModuleName}.${name}: ${error.message}`
-
-            logger.error(message)
-
-            initStatus.status = 'error'
-            initStatus.message = message
-        }
-
-        result.push(initStatus)
-    }
-
-    return result
 }
 
 // TODO test
@@ -89,7 +35,7 @@ const getObjectType = fn => {
 }
 
 const listFoldersInDirectory = (directory, excludeList = []) => {
-    return fs.readdirSync(directory).map(folder => {
+    return fs.readdirSync(directory).filter(folder => {
         const folderPath = path.join(directory, folder)
 
         const isFolderAndExists = fs.existsSync(folderPath) && fs.lstatSync(folderPath).isDirectory()
@@ -98,10 +44,30 @@ const listFoldersInDirectory = (directory, excludeList = []) => {
     })
 }
 
+const getMethodsByOperations = (directory, operation, excludeList = []) => {
+    if (!directory || !operation) throw new Error('Missing directory or operation')
+
+    return fs.readdirSync(directory).filter(file => {
+        const filePath = path.join(directory, file)
+
+        const exists = fs.existsSync(filePath)
+        const isNotIndex = file !== 'index.js'
+        const isNotTest = !file.includes('.test.js')
+        const isOfOperation = file.includes(`${operation}.`)
+
+        const isNotExcluded = excludeList.length
+            ? excludeList.every(excludeElement => !file.includes(excludeElement))
+            : true
+
+        return exists && isNotIndex && isNotTest && isOfOperation && isNotExcluded
+    })
+}
+
 module.exports = {
     isFunction,
     buildRoute,
     readFileInDir,
     getObjectType,
+    getMethodsByOperations,
     listFoldersInDirectory,
 }
