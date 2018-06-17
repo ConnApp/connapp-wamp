@@ -8,7 +8,7 @@ const servicesList = listFoldersInDirectory(__dirname, [
     'utils',
 ])
 
-module.exports = async function regsiter({ procedure, payload }) {
+module.exports = async function register({ procedure, payload }) {
     try {
         const serviceName = extractService(procedure)
 
@@ -16,7 +16,7 @@ module.exports = async function regsiter({ procedure, payload }) {
             throw new Error(`The service ${serviceName.toUpperCase()} was not declared on this node`)
         }
 
-        const service = require(`./${serviceName}`)() // ExecutesFirst to verify scopes and stuff
+        const service = require(`./${serviceName}`)() // Executes first to verify scopes and stuff
 
         const runMiddlewares = getServiceMiddleware(serviceName)
 
