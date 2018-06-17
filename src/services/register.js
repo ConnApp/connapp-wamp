@@ -1,6 +1,6 @@
-const extractService = require('../utils/extractService')
-const getServiceMiddleware = require('../utils/getServiceMiddleware')
-const runServiceValidators = require('../utils/runServiceValidators')
+const extractService = require('./utils/extractService')
+const getServiceMiddleware = require('./utils/getServiceMiddlewares')
+const runServiceValidators = require('./utils/runServiceValidators')
 
 const { listFoldersInDirectory } = rrequire('utils/shared')
 

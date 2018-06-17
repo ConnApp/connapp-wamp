@@ -3,7 +3,7 @@ module.exports = async function services_verify_view() {
     return async function services_view(payload, procedure) {
         // TODO Get model by node name
         // TODO Crete or load document
-        // TODO Perform update or save
-        // TODO Return
+        // TODO Perform action
+        // TODO Return result
     }
 }

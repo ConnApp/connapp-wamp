@@ -1,4 +1,4 @@
-const test = rrequire('test')
+const test = require('ava')
 
 const { isFunction, buildRoute, readFileInDir, getObjectType } = rrequire('utils/shared')
 
