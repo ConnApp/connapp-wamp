@@ -2,7 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const { getMethodsByOperations } = rrequire('utils/shared')
 
-module.exports = async function getServiceMiddlewares(serviceName, payload, procedure) {
+module.exports = async function utils_runServiceValidators(serviceName, payload, procedure) {
     const errors = []
 
     const validatorsPath = path.resolve(__dirname, '../../module/validators')

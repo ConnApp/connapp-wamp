@@ -1,9 +1,9 @@
-module.exports = async function verifySave() {
+module.exports = async function services_verify_save() {
     // TODO Verify scopes and permission
-    return async function save(payload, procedure) {
+    return async function services_save(payload, procedure) {
         // TODO Get model by node name
         // TODO Crete or load document
-        // TODO Perform update or save
-        // TODO Return
+        // TODO Perform action
+        // TODO Return result
     }
 }

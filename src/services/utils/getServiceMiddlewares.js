@@ -2,9 +2,9 @@ const fs = require('fs')
 const path = require('path')
 const { getMethodsByOperations } = rrequire('utils/shared')
 
-module.exports = function getServiceMiddlewares(serviceName) {
-    return function(hook) {
-        return async function runMiddlewares({ ...payload }) {
+module.exports = function utils_getServiceMiddlewares(serviceName) {
+    return function utils_defineMiddlewareHook(hook) {
+        return async function utils_runMiddlewares({ ...payload }) {
             const middlewaresPath = path.resolve(__dirname, `../../module/middleware/${hook}`)
 
             const isFolderAndExists =
