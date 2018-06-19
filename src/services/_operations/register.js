@@ -1,23 +1,8 @@
-const extractService = require('./utils/extractService')
-const getServiceMiddleware = require('./utils/getServiceMiddlewares')
-const runServiceValidators = require('./utils/runServiceValidators')
+const runServiceValidators = rrequire('utils/runServiceValidators')
+const getServiceMiddleware = rrequire('utils/getServiceMiddlewares')
 
-const { listFoldersInDirectory } = rrequire('utils/shared')
-
-const servicesList = listFoldersInDirectory(__dirname, [
-    'utils',
-])
-
-module.exports = async function register({ procedure, payload }) {
+module.exports = async function register({ procedure, payload }, serviceName, service) {
     try {
-        const serviceName = extractService(procedure)
-
-        if (!servicesList.includes(serviceName)) {
-            throw new Error(`The service ${serviceName.toUpperCase()} was not declared on this node`)
-        }
-
-        const service = require(`./${serviceName}`)() // Executes first to verify scopes and stuff
-
         const runMiddlewares = getServiceMiddleware(serviceName)
 
         const errors = await runServiceValidators(serviceName, payload, procedure)

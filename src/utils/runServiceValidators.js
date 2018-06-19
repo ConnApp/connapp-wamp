@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const { getMethodsByOperations } = rrequire('utils/shared')
+const { getMethodsByOperations } = require('./shared')
 
 module.exports = async function utils_runServiceValidators(serviceName, payload, procedure) {
     const errors = []
