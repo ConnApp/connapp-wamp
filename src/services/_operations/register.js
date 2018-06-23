@@ -1,5 +1,5 @@
-const runServiceValidators = rrequire('utils/runServiceValidators')
-const getServiceMiddleware = rrequire('utils/getServiceMiddlewares')
+const runServiceValidators = require('../../utils/service/runServiceValidators')
+const getServiceMiddleware = require('../../utils/service/getServiceMiddlewares')
 
 module.exports = async function register({ procedure, payload }, serviceName, service) {
     try {

@@ -1,13 +1,13 @@
 const wamp = require('connwamp')
 const crudOperations = require('connwamp-crud')
-const publishCallback = require('./utils/operations/publish')
-const registerCallback = require('./utils/operations/register')
+const publishCallback = require('./_operations/publish')
+const registerCallback = require('./_operations/register')
 
-const { node } = rrequire('config')
-const extractService = rrequire('utils/extractService')
-const { listFoldersInDirectory } = rrequire('utils/shared')
+const { node } = require('../config')
+const extractService = require('../utils/service/extractService')
+const listFolders = require('../utils/file/listFolders')
 
-const servicesList = listFoldersInDirectory(__dirname, [
+const servicesList = listFolders(__dirname, [
     '_operations',
 ]).concat(Object.keys(crudOperations))
 

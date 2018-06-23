@@ -3,7 +3,7 @@ require('./utils/require')
 const wamp = require('connwamp')
 
 const config = require('./config')
-const servicesInit = rrequire('services')
+const servicesInit = require('./services')
 
 async function init() {
     await wamp.connect(config.socket.url, { realm: config.socket.realm })

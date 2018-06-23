@@ -12,26 +12,11 @@
     },
     "ava": {
         "failFast": false,
-        "source": [
-            "src/**/*"
-        ],
-        "files": [
-            "src/**/*.test.js"
-        ],
-        "require": [
-            "babel-polyfill",
-            "./src/utils/require"
-        ]
+        "source": ["src/**/*"],
+        "files": ["src/**/*.test.js"],
+        "require": ["babel-polyfill"]
     },
-    "keywords": [
-        "crossbario",
-        "wamp",
-        "api",
-        "mongoose",
-        "websocket",
-        "microservice",
-        "node"
-    ],
+    "keywords": ["crossbario", "wamp", "api", "mongoose", "websocket", "microservice", "node"],
     "author": "Yan Nunes",
     "license": "MIT",
     "dependencies": {
