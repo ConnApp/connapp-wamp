@@ -1,5 +1,3 @@
-require('./utils/require')
-
 const wamp = require('connwamp')
 
 const config = require('./config')
