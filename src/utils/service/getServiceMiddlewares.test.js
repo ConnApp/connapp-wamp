@@ -66,12 +66,4 @@ test('should return unchanged payload [empty hook folder]', async t => {
     t.deepEqual(result, payload)
 })
 
-test('should return changes payload [valid middleware]', async t => {
-    const payload = { true: true }
-
-    const runMiddleware = getServiceMiddlewares('save')('pre')
-
-    const result = await runMiddleware(payload)
-
-    t.notDeepEqual(result, payload)
-})
+test.todo('should return changes payload [valid middleware]')

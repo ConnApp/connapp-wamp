@@ -7,7 +7,7 @@ module.exports = async function register({ procedure, payload }, serviceName, se
 
         const errors = await runServiceValidators(serviceName, payload, procedure)
 
-        if (errors.lenth) return { errors }
+        if (errors.length) return { errors }
 
         const preMiddlewareResult = await runMiddlewares('pre')(payload)
         const mainResult = await service(preMiddlewareResult, procedure)
@@ -15,8 +15,6 @@ module.exports = async function register({ procedure, payload }, serviceName, se
 
         return postMiddlewareResult
     } catch (error) {
-        console.log(error)
-
         return {
             errors: [
                 {

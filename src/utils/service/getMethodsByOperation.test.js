@@ -18,7 +18,7 @@ test('should throw error [missing operation]', async t => {
 
 test('should return correct files. Excludes test [post.save middlewares]', async t => {
     const operation = 'save'
-    const middlewareDirectory = path.resolve(__dirname, '../../module/middlewares/post')
+    const middlewareDirectory = path.resolve(__dirname, '../../module/middlewares/pre')
 
     const result = getMethodsByOperation(middlewareDirectory, operation)
 

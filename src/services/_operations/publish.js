@@ -1,7 +1,9 @@
+const wamp = require('connwamp')
+
 module.exports = async function publish({ payload, procedure }, result) {
     if (result.errors && result.errors.length) return result.errors
 
-    // TODO Publish event route here.
+    await wamp.publish(procedure, payload)
 
     return result
 }
