@@ -12,11 +12,25 @@
     },
     "ava": {
         "failFast": false,
-        "source": ["src/**/*"],
-        "files": ["src/**/*.test.js"],
-        "require": ["babel-polyfill"]
+        "source": [
+            "src/**/*"
+        ],
+        "files": [
+            "src/**/*.test.js"
+        ],
+        "require": [
+            "babel-polyfill"
+        ]
     },
-    "keywords": ["crossbario", "wamp", "api", "mongoose", "websocket", "microservice", "node"],
+    "keywords": [
+        "crossbario",
+        "wamp",
+        "api",
+        "mongoose",
+        "websocket",
+        "microservice",
+        "node"
+    ],
     "author": "Yan Nunes",
     "license": "MIT",
     "dependencies": {
@@ -27,6 +41,7 @@
         "nodemon": "^1.17.4",
         "websocket": "^1.0.26",
         "to-slug-case": "^1.0.0",
+        "connutils": "git+https://github.com/ConnApp/connutils.git#master",
         "connwamp-crud": "git+https://github.com/ConnApp/connwamp-crud.git#master"
     },
     "devDependencies": {

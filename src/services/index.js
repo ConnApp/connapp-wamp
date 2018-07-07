@@ -4,8 +4,8 @@ const publishCallback = require('./_operations/publish')
 const registerCallback = require('./_operations/register')
 
 const { node } = require('../config')
-const extractService = require('../utils/service/extractService')
-const listFolders = require('../utils/file/listFolders')
+const { extractService } = require('connutils/src/service')
+const { listFolders } = require('connutils/src/fs')
 
 const servicesList = listFolders(__dirname, [
     '_operations',

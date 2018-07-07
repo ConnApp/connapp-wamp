@@ -1,5 +1,4 @@
-const runServiceValidators = require('../../utils/service/runServiceValidators')
-const getServiceMiddleware = require('../../utils/service/getServiceMiddlewares')
+const { runServiceValidators, getServiceMiddleware } = require('connutils/src/service')
 
 module.exports = async function register({ procedure, payload }, serviceName, service) {
     try {

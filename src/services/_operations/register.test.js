@@ -2,16 +2,13 @@ const test = require('ava')
 
 const proxyquire = require('proxyquire')
 
-/*
-    const runServiceValidators = require('../../utils/service/runServiceValidators')
-    const getServiceMiddleware = require('../../utils/service/getServiceMiddlewares')
-*/
-
 test('should return errors [error thrown on external function]', async t => {
     const register = proxyquire('./register', {
-        '../../utils/service/runServiceValidators': () => [],
-        '../../utils/service/getServiceMiddlewares': function getServiceMiddleware() {
-            throw new Error('This is a reason')
+        'connutils/src/service': {
+            runServiceValidators: () => [],
+            getServiceMiddleware: function getServiceMiddleware() {
+                throw new Error('This is a reason')
+            },
         },
     })
 
@@ -32,10 +29,12 @@ test('should return errors [error thrown on external function]', async t => {
 
 test('should return errors [errors on validation]', async t => {
     const register = proxyquire('./register', {
-        '../../utils/service/runServiceValidators': () => [
-            { error: true },
-        ],
-        '../../utils/service/getServiceMiddlewares': () => {},
+        'connutils/src/service': {
+            runServiceValidators: () => [
+                { error: true },
+            ],
+            getServiceMiddleware: () => {},
+        },
     })
 
     const result = await register({})
