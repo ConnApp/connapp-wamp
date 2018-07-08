@@ -39,7 +39,5 @@ module.exports = async function InitService() {
         }
     )
 
-    console.log(registerStatus)
-
     return registerStatus
 }
